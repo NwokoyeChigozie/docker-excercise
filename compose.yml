@@ -1,0 +1,29 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: docker-exercise-app
+    restart: always
+    depends_on:
+      - mariadb
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./.env
+    networks:
+      - docker-exercise
+
+  mariadb:
+    image: mariadb:11.5-rc
+    container_name: mariadb
+    restart: always
+    env_file:
+      - ./.env
+    ports:
+      - "3306:3306"
+    networks:
+      - docker-exercise
+networks:
+  docker-exercise:
+    driver: bridge
