@@ -6,7 +6,7 @@ services:
     container_name: docker-exercise-app
     restart: always
     healthcheck:
-      test: ["CMD", "wget", "localhost:3000"]
+      test: ["CMD", "curl", "localhost:3000"]
       start_period: 10s
       interval: 10s
       timeout: 5s
