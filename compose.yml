@@ -5,6 +5,12 @@ services:
       dockerfile: Dockerfile
     container_name: docker-exercise-app
     restart: always
+    healthcheck:
+      test: ["CMD", "wget", "localhost:3000"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
     depends_on:
       - mariadb
     ports:
@@ -20,6 +26,12 @@ services:
     restart: always
     env_file:
       - ./.env
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
     ports:
       - "3306:3306"
     networks:
